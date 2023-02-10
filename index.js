@@ -37,9 +37,9 @@ function getChar(data){
     let nameHeader = document.createElement("th")
     nameHeader.innerHTML = "name"
     row2.appendChild(nameHeader)
-    let speciesHeader = document.createElement("th")
-    speciesHeader.innerHTML = "species"
-    row2.appendChild(speciesHeader)
+    let birthHeader = document.createElement("th")
+    birthHeader.innerHTML = "birth year"
+    row2.appendChild(birthHeader)
     for(let i = 0; i < movie.characters.length; i++){
         fetch(movie.characters[i])
             .then(res=>res.json())
@@ -52,9 +52,12 @@ function getChar(data){
 function renderChar(data){
     let char = data.result.properties
     let row = table.insertRow(rowCount)
-    rowCount+=1
-    let nameData = document.createElement("td")
+    let nameData = row.insertCell(0)
     nameData.innerHTML = char.name
-    row.appendChild(nameData)
+    
+    let birthData = row.insertCell(1)
+    birthData.innerHTML = char.birth_year
+    row.appendChild(row)
+    rowCount+=1
     
 }

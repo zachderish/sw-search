@@ -37,6 +37,9 @@ function getChar(data){
     let nameHeader = document.createElement("th")
     nameHeader.innerHTML = "name"
     row2.appendChild(nameHeader)
+    let speciesHeader = document.createElement("th")
+    speciesHeader.innerHTML = "species"
+    row2.appendChild(speciesHeader)
     for(let i = 0; i < movie.characters.length; i++){
         fetch(movie.characters[i])
             .then(res=>res.json())

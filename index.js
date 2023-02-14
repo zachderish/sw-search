@@ -31,15 +31,26 @@ function getChar(data){
     header.innerHTML = movie.title
     row1.appendChild(header)
 
-    // create table headers for name, birth year and homeworld
+    // create table headers for name, birth year, homeworld, hair color and skin color
     let row2 = table.insertRow(rowCount)
     rowCount+=1
+
     let nameHeader = document.createElement("th")
     nameHeader.innerHTML = "name"
     row2.appendChild(nameHeader)
+
     let birthHeader = document.createElement("th")
     birthHeader.innerHTML = "birth year"
     row2.appendChild(birthHeader)
+
+    let hairHeader = document.createElement("th")
+    hairHeader.innerHTML = "hair color"
+    row2.appendChild(hairHeader)
+
+    let skinHeader = document.createElement("th")
+    skinHeader.innerHTML = "skin color"
+    row2.appendChild(skinHeader)
+
     let homeHeader = document.createElement("th")
     homeHeader.innerHTML = "homeworld"
     row2.appendChild(homeHeader)
@@ -65,19 +76,28 @@ function renderChar(data){
     // insert birth year
     let birthData = row.insertCell(1)
     birthData.innerHTML = char.birth_year
-    rowCount+=1
+
+    // insert hair color 
+    let hairData = row.insertCell(2)
+    hairData.innerHTML = char.hair_color
+
+    // insert skin color
+    let skinData = row.insertCell(3)
+    skinData.innerHTML = char.skin_color
 
     // promise to API for homeworld
     fetch(char.homeworld)
         .then(res=>res.json())
         .then(data=>renderHome(row, data))
+
+    rowCount+=1
     
 }
 
 // render homeworld from promise
 function renderHome(row, data){
     let planet = data.result.properties.name
-    let homeData = row.insertCell(2)
+    let homeData = row.insertCell(4)
     homeData.innerHTML = planet
     
 }

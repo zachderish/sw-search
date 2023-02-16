@@ -1,9 +1,9 @@
 // button element
 const charBtn = document.getElementById("char-btn")
-// entry element
-const input = document.getElementById("input")
 // table element
 const table = document.getElementById("table")
+// films drop down element
+let films = document.getElementById("films")
 
 
 charBtn.addEventListener("click", function(){
@@ -22,8 +22,8 @@ let rowCount = 0
 
 function getChar(data){
     // get movie and create header with movie title
-    console.log(input.value)
-    const movie = data.result[input.value-1].properties
+    console.log(films.value)
+    const movie = data.result[films.value-1].properties
     console.log(movie)
     let row1 = table.insertRow(rowCount)
     rowCount+=1
@@ -51,9 +51,9 @@ function getChar(data){
     skinHeader.innerHTML = "skin color"
     row2.appendChild(skinHeader)
 
-    let homeHeader = document.createElement("th")
+    /*let homeHeader = document.createElement("th")
     homeHeader.innerHTML = "homeworld"
-    row2.appendChild(homeHeader)
+    row2.appendChild(homeHeader)*/
     // loop through characters in movie
     for(let i = 0; i < movie.characters.length; i++){
         // promise to SW API
@@ -86,9 +86,9 @@ function renderChar(data){
     skinData.innerHTML = char.skin_color
 
     // promise to API for homeworld
-    fetch(char.homeworld)
+    /*fetch(char.homeworld)
         .then(res=>res.json())
-        .then(data=>renderHome(row, data))
+        .then(data=>renderHome(row, data))*/
 
     rowCount+=1
     

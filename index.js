@@ -4,6 +4,10 @@ const charBtn = document.getElementById("char-btn")
 const table = document.getElementById("table")
 // films drop down element
 let films = document.getElementById("films")
+// character qualities drop down element
+let charQualDrop = document.getElementById("char-qual")
+// character quality input
+let charQualInput = document.getElementById("input1")
 
 
 charBtn.addEventListener("click", function(){
@@ -31,25 +35,31 @@ function getChar(data){
     header.innerHTML = movie.title
     row1.appendChild(header)
 
-    // create table headers for name, birth year, homeworld, hair color and skin color
+    // create table headers for selected character quality
     let row2 = table.insertRow(rowCount)
     rowCount+=1
-
+    
     let nameHeader = document.createElement("th")
     nameHeader.innerHTML = "name"
     row2.appendChild(nameHeader)
 
-    let birthHeader = document.createElement("th")
-    birthHeader.innerHTML = "birth year"
-    row2.appendChild(birthHeader)
+    if(charQualDrop.value=="birth-year"){
+        let birthHeader = document.createElement("th")
+        birthHeader.innerHTML = "birth year"
+        row2.appendChild(birthHeader)
+    }
 
-    let hairHeader = document.createElement("th")
-    hairHeader.innerHTML = "hair color"
-    row2.appendChild(hairHeader)
+    else if(charQualDrop.value=="hair-color"){
+        let hairHeader = document.createElement("th")
+        hairHeader.innerHTML = "hair color"
+        row2.appendChild(hairHeader)
+    }
 
-    let skinHeader = document.createElement("th")
-    skinHeader.innerHTML = "skin color"
-    row2.appendChild(skinHeader)
+    else{
+        let skinHeader = document.createElement("th")
+        skinHeader.innerHTML = "skin color"
+        row2.appendChild(skinHeader)
+    }
 
     /*let homeHeader = document.createElement("th")
     homeHeader.innerHTML = "homeworld"
@@ -67,12 +77,31 @@ function getChar(data){
 
 // render character names, birth year and homeworld in cells
 function renderChar(data){
-    // insert name
     let char = data.result.properties
-    let row = table.insertRow(rowCount)
-    let nameData = row.insertCell(0)
-    nameData.innerHTML = char.name
-    
+    // insert name
+    let hit = false
+    let text = ""
+    if(charQualDrop.value=="birth-year" && char.birth_year==charQualInput.value){
+        hit=true
+        text=charQualInput.value
+    }
+    else if(charQualDrop.value=="hair-color" && char.hair_color==charQualInput.value){
+        hit=true
+        text=charQualInput.value
+    }
+    else if(charQualDrop.value=="skin-color" && char.skin_color==charQualInput.value){
+        hit=true
+        text=charQualInput.value
+    }
+    if(hit == true){
+        let row = table.insertRow(rowCount)
+        let nameData = row.insertCell(0)
+        nameData.innerHTML = char.name
+        let data = row.insertCell(1)
+        data.innerHTML = text
+        rowCount+=1
+    }
+    /*
     // insert birth year
     let birthData = row.insertCell(1)
     birthData.innerHTML = char.birth_year
@@ -84,13 +113,12 @@ function renderChar(data){
     // insert skin color
     let skinData = row.insertCell(3)
     skinData.innerHTML = char.skin_color
-
+    */
     // promise to API for homeworld
     /*fetch(char.homeworld)
         .then(res=>res.json())
         .then(data=>renderHome(row, data))*/
 
-    rowCount+=1
     
 }
 

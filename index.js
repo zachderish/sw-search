@@ -43,27 +43,27 @@ function getChar(data){
     nameHeader.innerHTML = "name"
     row2.appendChild(nameHeader)
 
+    // if birth year selected, create header
     if(charQualDrop.value=="birth-year"){
         let birthHeader = document.createElement("th")
         birthHeader.innerHTML = "birth year"
         row2.appendChild(birthHeader)
     }
 
+    // if bair selected, create header
     else if(charQualDrop.value=="hair-color"){
         let hairHeader = document.createElement("th")
         hairHeader.innerHTML = "hair color"
         row2.appendChild(hairHeader)
     }
 
+    // if skin color selected, create header
     else{
         let skinHeader = document.createElement("th")
         skinHeader.innerHTML = "skin color"
         row2.appendChild(skinHeader)
     }
 
-    /*let homeHeader = document.createElement("th")
-    homeHeader.innerHTML = "homeworld"
-    row2.appendChild(homeHeader)*/
     // loop through characters in movie
     for(let i = 0; i < movie.characters.length; i++){
         // promise to SW API
@@ -81,18 +81,22 @@ function renderChar(data){
     // insert name
     let hit = false
     let text = ""
+    // check for birth year
     if(charQualDrop.value=="birth-year" && char.birth_year==charQualInput.value){
         hit=true
         text=charQualInput.value
     }
+    // check for hair color
     else if(charQualDrop.value=="hair-color" && char.hair_color==charQualInput.value){
         hit=true
         text=charQualInput.value
     }
+    // check for skin color
     else if(charQualDrop.value=="skin-color" && char.skin_color==charQualInput.value){
         hit=true
         text=charQualInput.value
     }
+    // if the value for a characteristic was found, insert given characteristic
     if(hit == true){
         let row = table.insertRow(rowCount)
         let nameData = row.insertCell(0)
@@ -101,19 +105,6 @@ function renderChar(data){
         data.innerHTML = text
         rowCount+=1
     }
-    /*
-    // insert birth year
-    let birthData = row.insertCell(1)
-    birthData.innerHTML = char.birth_year
-
-    // insert hair color 
-    let hairData = row.insertCell(2)
-    hairData.innerHTML = char.hair_color
-
-    // insert skin color
-    let skinData = row.insertCell(3)
-    skinData.innerHTML = char.skin_color
-    */
     // promise to API for homeworld
     /*fetch(char.homeworld)
         .then(res=>res.json())
